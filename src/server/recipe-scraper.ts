@@ -8,20 +8,20 @@ export async function getRecipeHtmlFromUrl(url: string, plugin?: string) {
     args: ["--no-sandbox", "--disable-gpu"],
   } as LaunchOptions);
 
-  const defaultSelector = ".tasty-recipes, .wprm-recipe, .recipe-container";
+  const defaultSelector =
+    "div[classs^=tasty-recipes], div[class^=wprm], div[class^=recipe-container]";
 
   const page = await browser.newPage();
 
-  await page.goto(url);
+  await page.goto(url, { waitUntil: ["domcontentloaded"] });
 
-  // Wait for the content to load (adjust the selector as needed)
-  await page.waitForSelector(plugin ?? defaultSelector);
+  const pageRawHtml = await page.content();
 
-  const html = await page.content();
+  const dom = cheerio.load(pageRawHtml);
 
-  const dom = cheerio.load(html);
+  const recipeContainer = dom(plugin ?? defaultSelector).first();
 
-  const elem = dom(plugin ?? defaultSelector).first();
+  const recipeHtml = recipeContainer.html();
 
-  return elem.html();
+  return recipeHtml;
 }

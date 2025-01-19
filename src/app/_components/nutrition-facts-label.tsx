@@ -64,16 +64,21 @@ export function NutritionalFactsLabel({
           <span className="text-4xl font-bold">{nutrition.calories.value}</span>
         </div>
         <div className="mb-1 text-right text-xs font-bold">% Daily Value*</div>
-        {facts.map((fact, index) => (
-          <React.Fragment key={index}>
-            <NutritionFactRow
-              name={fact.name}
-              amount={`${fact.data.value}${fact.data.unit}`}
-              dailyValue={`${fact.data.dailyPercent}`}
-              boldName={fact.boldName}
-            />
-          </React.Fragment>
-        ))}
+        {facts.map((fact, index) => {
+          if (fact?.data?.value > 0) {
+            return (
+              <React.Fragment key={index}>
+                <NutritionFactRow
+                  name={fact.name}
+                  amount={`${fact.data.value}${fact.data.unit}`}
+                  dailyValue={`${fact.data.dailyPercent}`}
+                  boldName={fact.boldName}
+                />
+              </React.Fragment>
+            );
+          }
+        })}
+
         <div className="mt-2 border-t border-black pt-1 text-xs">
           * The % Daily Value (DV) tells you how much a nutrient in a serving of
           food contributes to a daily diet. 2,000 calories a day is used for

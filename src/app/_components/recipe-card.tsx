@@ -1,12 +1,18 @@
+import React, { useRef } from "react";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import type { Recipe } from "@/types";
+import CopyToClipboard from "./copy-to-clipboard";
 
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
+  const recipeCardRef = useRef(null);
+
   return (
-    <Card className="mx-auto w-full">
-      <CardHeader>
+    <Card ref={recipeCardRef} className="mx-auto w-full">
+      <CardHeader className="flex-row justify-between">
         <CardTitle className="text-2xl font-bold">{recipe.name}</CardTitle>
+        <CopyToClipboard contentRef={recipeCardRef} />
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
@@ -28,7 +34,6 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
               ))}
             </ol>
           </div>
-          {JSON.stringify(recipe.nutrition)}
         </div>
       </CardContent>
     </Card>

@@ -27,7 +27,7 @@ export const scraperRouter = createTRPCRouter({
         schemaDescription: "a scrapped recipe",
         schema: recipe,
         system:
-          "I am going to give you html from a recipe website and you need to generate a recipe object from it. You will also generate the nutrition facts based on the ingredients in the recipe and suggest serving sizes. If you can find the servering size look to historical data and make a guess",
+          "I am going to give you html from a recipe website and you need to generate a recipe object from it. You will also generate the nutrition facts based on the ingredients in the recipe and suggest serving sizes. If you can find the servering size look to historical data and make a guess. For each of nutrition items also include what percent of the daily recommended amount it is as a number",
         prompt: input.html,
       });
 

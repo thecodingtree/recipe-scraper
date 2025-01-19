@@ -19,15 +19,19 @@ export function RecipeUrlInput({
   };
 
   return (
-    <div>
-      <Input
-        className="text-black"
-        placeholder="Enter a url to scrape"
-        onChange={(e) => setRecipeUrlInput(e.target.value)}
-      />
-      <Button onClick={handleClick} disabled={loading}>
-        Scrape!
-      </Button>
+    <div className="flex min-w-full flex-row gap-2">
+      <div className="flex-1">
+        <Input
+          className="text-black"
+          placeholder="Enter url..."
+          onChange={(e) => setRecipeUrlInput(e.target.value)}
+        />
+      </div>
+      <div className="w-48 flex-none">
+        <Button className="w-full" onClick={handleClick} disabled={loading}>
+          Scrape!
+        </Button>
+      </div>
     </div>
   );
 }
